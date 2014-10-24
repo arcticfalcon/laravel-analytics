@@ -52,6 +52,10 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 	 */
 	private $trackingBag;
 
+	private $nonInteraction;
+	
+	private $customDimensions = [];
+
 	/**
 	 * setting options via constructor
 	 *
@@ -165,6 +169,27 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 		$this->autoTrack = false;
 	}
 
+	/**
+	 * set Non-interaction hit
+	 *
+	 * @return void
+	 */
+	public function nonInteraction($value)
+	{
+		$this->nonInteraction = boolval($value);
+	}
+
+
+	public function setCustomDimension($index, $value)
+	{
+		if(!is_int($index) || $index < 1 || $index > 200)
+		{
+			throw new \InvalidArgumentException("index must be a positive integer between 1 and 200");
+		}
+
+		$this->customDimensions[$index] = $value;
+	}
+
 
 	/**
 	 * returns the javascript embedding code
@@ -187,6 +212,16 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 		if ($this->anonymizeIp)
 		{
 			$script[] = "ga('set', 'anonymizeIp', true);";
+		}
+
+		if($this->nonInteraction)
+		{
+			$script[] = "ga('set', 'nonInteraction', true);";
+		}
+
+		foreach($this->customDimensions as $index => $customDimension)
+		{
+			$script[] = "ga('set', 'dimension$index', '$customDimension');";
 		}
 
 		$trackingStack = $this->trackingBag->get();
