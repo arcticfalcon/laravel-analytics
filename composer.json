@@ -1,13 +1,13 @@
 {
-	"name": "ipunkt/laravel-analytics",
+	"name": "arcticfalcon/laravel-analytics",
 	"type": "library",
 	"description": "Analytics tracking for laravel 4.x",
 	"keywords": ["analytics", "google analytics", "laravel", "statistics", "javascript", "php"],
 	"license": "MIT",
 	"authors": [
 		{
-			"name": "Robert Kummer",
-			"email": "rok@ipunkt.biz"
+			"name": "Juan Falcón",
+			"email": "jcfalcon@gmail.com"
 		}
 	],
 	"require": {
