@@ -1,22 +1,22 @@
 # Analytics tracking package for Laravel 4.x
 
-[![Latest Stable Version](https://poser.pugx.org/ipunkt/laravel-analytics/v/stable.svg)](https://packagist.org/packages/ipunkt/laravel-analytics) [![Latest Unstable Version](https://poser.pugx.org/ipunkt/laravel-analytics/v/unstable.svg)](https://packagist.org/packages/ipunkt/laravel-analytics) [![License](https://poser.pugx.org/ipunkt/laravel-analytics/license.svg)](https://packagist.org/packages/ipunkt/laravel-analytics) [![Total Downloads](https://poser.pugx.org/ipunkt/laravel-analytics/downloads.svg)](https://packagist.org/packages/ipunkt/laravel-analytics)
+[![Latest Stable Version](https://poser.pugx.org/arcticfalcon/laravel-analytics/v/stable.svg)](https://packagist.org/packages/arcticfalcon/laravel-analytics) [![Latest Unstable Version](https://poser.pugx.org/arcticfalcon/laravel-analytics/v/unstable.svg)](https://packagist.org/packages/arcticfalcon/laravel-analytics) [![License](https://poser.pugx.org/arcticfalcon/laravel-analytics/license.svg)](https://packagist.org/packages/arcticfalcon/laravel-analytics) [![Total Downloads](https://poser.pugx.org/arcticfalcon/laravel-analytics/downloads.svg)](https://packagist.org/packages/arcticfalcon/laravel-analytics)
 
 ## Installation
 
 Add to your composer.json following lines
 
 	"require": {
-		"ipunkt/laravel-analytics": "~1.0"
+		"arcticfalcon/laravel-analytics": "~1.0"
 	}
 
-Run `php artisan config:publish ipunkt/laravel-analytics`
+Run `php artisan config:publish arcticfalcon/laravel-analytics`
 
-Then edit `analytics.php` in `app/config/packages/ipunkt/laravel-analytics` to your needs.
+Then edit `analytics.php` in `app/config/packages/arcticfalcon/laravel-analytics` to your needs.
 
-Add `'Ipunkt\LaravelAnalytics\AnalyticsServiceProvider',` to `providers` in `app/config/app.php`.
+Add `'ArcticFalcon\LaravelAnalytics\AnalyticsServiceProvider',` to `providers` in `app/config/app.php`.
 
-Add `'Analytics' => 'Ipunkt\LaravelAnalytics\AnalyticsFacade',` to `aliases` in `app/config/app.php`.
+Add `'Analytics' => 'ArcticFalcon\LaravelAnalytics\AnalyticsFacade',` to `aliases` in `app/config/app.php`.
 
 
 ## Configuration
@@ -77,7 +77,7 @@ configurations.
 
 ## API Documentation
 
-For the correct usage methods look at the `Ipunkt\LaravelAnalytics\Contracts\AnalyticsProviderInterface.php`
+For the correct usage methods look at the `ArcticFalcon\LaravelAnalytics\Contracts\AnalyticsProviderInterface.php`
 
 ### Analytics::render()
 
@@ -169,8 +169,8 @@ Sometimes you have to track measurements, e.g. opening an email newsletter. Ther
 	 *
 	 * @param string $metricName
 	 * @param mixed $metricValue
-	 * @param \Ipunkt\LaravelAnalytics\Data\Event $event
-	 * @param \Ipunkt\LaravelAnalytics\Data\Campaign $campaign
+	 * @param \ArcticFalcon\LaravelAnalytics\Data\Event $event
+	 * @param \ArcticFalcon\LaravelAnalytics\Data\Campaign $campaign
 	 * @param string|null $clientId
 	 * @param array $params
 	 * @return string

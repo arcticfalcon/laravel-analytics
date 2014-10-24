@@ -6,11 +6,11 @@
  * @since 07.03.14
  */
 
-namespace Ipunkt\LaravelAnalytics\Contracts;
+namespace ArcticFalcon\LaravelAnalytics\Contracts;
 
 
-use Ipunkt\LaravelAnalytics\Data\Campaign;
-use Ipunkt\LaravelAnalytics\Data\Event;
+use ArcticFalcon\LaravelAnalytics\Data\Campaign;
+use ArcticFalcon\LaravelAnalytics\Data\Event;
 
 interface AnalyticsProviderInterface {
 
@@ -71,8 +71,8 @@ interface AnalyticsProviderInterface {
 	 *
 	 * @param string $metricName
 	 * @param mixed $metricValue
-	 * @param \Ipunkt\LaravelAnalytics\Data\Event $event
-	 * @param \Ipunkt\LaravelAnalytics\Data\Campaign $campaign
+	 * @param \ArcticFalcon\LaravelAnalytics\Data\Event $event
+	 * @param \ArcticFalcon\LaravelAnalytics\Data\Campaign $campaign
 	 * @param string|null $clientId
 	 * @param array $params
 	 * @return string

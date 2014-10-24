@@ -1,9 +1,9 @@
 <?php
 /**
- * ipunkt/laravel-analytics
+ * arcticfalcon/laravel-analytics
  *
- * @author rok
- * @since 07.03.14
+ * @author arcticfalcon
+ * @since 1.1.0
  */
 
 return array(

@@ -6,7 +6,7 @@
  * @since 09.05.14
  */
 
-namespace Ipunkt\LaravelAnalytics\Data;
+namespace ArcticFalcon\LaravelAnalytics\Data;
 
 
 class Campaign {

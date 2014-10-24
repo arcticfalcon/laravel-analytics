@@ -5,6 +5,10 @@
 	"keywords": ["analytics", "google analytics", "laravel", "statistics", "javascript", "php"],
 	"license": "MIT",
 	"authors": [
+        {
+            "name": "Robert Kummer",
+        	"email": "rok@ipunkt.biz"
+        },
 		{
 			"name": "Juan Falcón",
 			"email": "jcfalcon@gmail.com"
@@ -16,7 +20,7 @@
 	},
 	"autoload": {
 		"psr-0": {
-			"Ipunkt\\LaravelAnalytics\\": "src/"
+			"ArcticFalcon\\LaravelAnalytics\\": "src/"
 		}
 	},
 	"minimum-stability": "stable"

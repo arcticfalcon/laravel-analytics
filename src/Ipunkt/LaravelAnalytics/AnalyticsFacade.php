@@ -6,7 +6,7 @@
  * @since 07.03.14
  */
 
-namespace Ipunkt\LaravelAnalytics;
+namespace ArcticFalcon\LaravelAnalytics;
 
 
 use Illuminate\Support\Facades\Facade;

@@ -1,4 +1,4 @@
-<?php namespace Ipunkt\LaravelAnalytics;
+<?php namespace ArcticFalcon\LaravelAnalytics;
 
 use Config;
 use Illuminate\Support\ServiceProvider;
@@ -19,7 +19,7 @@ class AnalyticsServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('ipunkt/laravel-analytics');
+		$this->package('arcticfalcon/laravel-analytics');
 	}
 
 	/**
@@ -35,7 +35,7 @@ class AnalyticsServiceProvider extends ServiceProvider {
 			$provider = Config::get('laravel-analytics::analytics.provider');
 
 			//	make it a class
-			$providerClass = 'Ipunkt\LaravelAnalytics\Providers\\' . $provider;
+			$providerClass = 'ArcticFalcon\LaravelAnalytics\Providers\\' . $provider;
 
 			//	getting the config
 			$providerConfig = [];

@@ -6,8 +6,8 @@
  * @since 07.03.14
  */
 
-namespace Ipunkt\LaravelAnalytics;
-use Ipunkt\LaravelAnalytics\Contracts\TrackingBagInterface;
+namespace ArcticFalcon\LaravelAnalytics;
+use ArcticFalcon\LaravelAnalytics\Contracts\TrackingBagInterface;
 use Session;
 
 class TrackingBag implements TrackingBagInterface {

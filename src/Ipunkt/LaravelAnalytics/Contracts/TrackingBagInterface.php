@@ -6,7 +6,7 @@
  * @since 07.03.14
  */
 
-namespace Ipunkt\LaravelAnalytics\Contracts;
+namespace ArcticFalcon\LaravelAnalytics\Contracts;
 
 
 interface TrackingBagInterface {
