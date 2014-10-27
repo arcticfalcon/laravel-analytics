@@ -10,10 +10,10 @@ namespace ArcticFalcon\LaravelAnalytics\Providers;
 
 
 use ArcticFalcon\LaravelAnalytics\Contracts\AnalyticsProviderInterface;
+use ArcticFalcon\LaravelAnalytics\Contracts\TrackingBagInterface;
 use ArcticFalcon\LaravelAnalytics\Data\Campaign;
 use ArcticFalcon\LaravelAnalytics\Data\Event;
 use ArcticFalcon\LaravelAnalytics\TrackingBag;
-use App;
 
 class GoogleAnalytics implements AnalyticsProviderInterface {
 
@@ -53,6 +53,8 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 	private $trackingBag;
 
 	private $nonInteraction;
+
+	private $sandbox = false;
 	
 	private $customDimensions = [];
 
@@ -62,19 +64,20 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 	 * @param array $options
 	 * @throws \InvalidArgumentException when tracking id not set
 	 */
-	public function __construct(array $options = array())
+	public function __construct(array $options = array(), TrackingBagInterface $trackingBag = null)
 	{
 		$this->trackingId = (isset($options['tracking_id'])) ? $options['tracking_id'] : null;
 		$this->trackingDomain = (isset($options['tracking_domain'])) ? $options['tracking_domain'] : 'auto';
 		$this->anonymizeIp = (isset($options['anonymize_ip'])) ? $options['anonymize_ip'] : false;
 		$this->autoTrack = (isset($options['auto_track'])) ? $options['auto_track'] : false;
+		$this->sandbox = (isset($options['sandbox'])) ? $options['sandbox'] : false;
 
 		if ($this->trackingId === null)
 		{
 			throw new \InvalidArgumentException('Argument tracking_id can not be null');
 		}
 
-		$this->trackingBag = new TrackingBag;
+		$this->trackingBag = $trackingBag?: new TrackingBag;
 	}
 
 	/**
@@ -200,7 +203,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 	{
 		$script[] = $this->_getJavascriptTemplateBlockBegin();
 
-		if (App::environment() === 'local')
+		if ($this->sandbox)
 		{
 			$script[] = "ga('create', '{$this->trackingId}', { 'cookieDomain': 'none' });";
 		}

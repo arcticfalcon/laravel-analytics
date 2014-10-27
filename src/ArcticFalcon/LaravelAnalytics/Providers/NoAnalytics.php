@@ -101,5 +101,15 @@ class NoAnalytics implements AnalyticsProviderInterface {
 		return '';
 	}
 
+	public function nonInteraction($value)
+	{
+
+	}
+
+	public function setCustomDimension($index, $value)
+	{
+
+	}
+
 
 }

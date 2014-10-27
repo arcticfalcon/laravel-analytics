@@ -78,4 +78,8 @@ interface AnalyticsProviderInterface {
 	 * @return string
 	 */
 	public function trackMeasurementUrl($metricName, $metricValue, Event $event, Campaign $campaign, $clientId = null, array $params = array());
+
+	public function nonInteraction($value);
+
+	public function setCustomDimension($index, $value);
 }

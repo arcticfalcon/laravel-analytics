@@ -1,9 +1,7 @@
 <?php
 /**
- * mitarbeiterbereich2
- *
- * @author rok
- * @since 07.03.14
+ * @author arcticfalcon
+ * @since 1.1.0
  */
 
 namespace ArcticFalcon\LaravelAnalytics;
