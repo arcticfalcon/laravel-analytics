@@ -12,6 +12,7 @@ namespace ArcticFalcon\LaravelAnalytics\Providers;
 use ArcticFalcon\LaravelAnalytics\Contracts\AnalyticsProviderInterface;
 use ArcticFalcon\LaravelAnalytics\Data\Campaign;
 use ArcticFalcon\LaravelAnalytics\Data\Event;
+use ArcticFalcon\LaravelAnalytics\Data\Hit;
 
 class NoAnalytics implements AnalyticsProviderInterface {
 
@@ -107,6 +108,16 @@ class NoAnalytics implements AnalyticsProviderInterface {
 	}
 
 	public function setCustomDimension($index, $value)
+	{
+
+	}
+
+	/**
+	 * track a custom hit
+	 * @param Hit $hit
+	 * @return void
+	 */
+	public function trackHit(Hit $hit)
 	{
 
 	}

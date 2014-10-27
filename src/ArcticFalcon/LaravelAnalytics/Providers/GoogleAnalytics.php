@@ -2,8 +2,8 @@
 /**
  * mitarbeiterbereich2
  *
- * @author rok
- * @since 07.03.14
+ * @author arcticfalcon
+ * @since 1.1.0
  */
 
 namespace ArcticFalcon\LaravelAnalytics\Providers;
@@ -13,6 +13,7 @@ use ArcticFalcon\LaravelAnalytics\Contracts\AnalyticsProviderInterface;
 use ArcticFalcon\LaravelAnalytics\Contracts\TrackingBagInterface;
 use ArcticFalcon\LaravelAnalytics\Data\Campaign;
 use ArcticFalcon\LaravelAnalytics\Data\Event;
+use ArcticFalcon\LaravelAnalytics\Data\Hit;
 use ArcticFalcon\LaravelAnalytics\TrackingBag;
 
 class GoogleAnalytics implements AnalyticsProviderInterface {
@@ -151,6 +152,10 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 		$this->trackingBag->add($customCode);
 	}
 
+	public function trackHit(Hit $hit)
+	{
+		$this->trackingBag->add($hit->render());
+	}
 
 	/**
 	 * enable auto tracking

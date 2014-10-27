@@ -11,6 +11,7 @@ namespace ArcticFalcon\LaravelAnalytics\Contracts;
 
 use ArcticFalcon\LaravelAnalytics\Data\Campaign;
 use ArcticFalcon\LaravelAnalytics\Data\Event;
+use ArcticFalcon\LaravelAnalytics\Data\Hit;
 
 interface AnalyticsProviderInterface {
 
@@ -49,6 +50,13 @@ interface AnalyticsProviderInterface {
 	 * @return void
 	 */
 	public function trackCustom($customCode);
+
+	/**
+	 * track a custom hit
+	 * @param Hit $hit
+	 * @return void
+	 */
+	public function trackHit(Hit $hit);
 
 	/**
 	 * enable auto tracking

@@ -1,6 +1,7 @@
 <?php
 
 require('TrackingBagMock.php');
+use ArcticFalcon\LaravelAnalytics\Data\Hit;
 use ArcticFalcon\LaravelAnalytics\Providers\GoogleAnalytics;
 
 class GoogleAnalyticsTest extends PHPUnit_Framework_TestCase
@@ -38,6 +39,19 @@ class GoogleAnalyticsTest extends PHPUnit_Framework_TestCase
 
 		$this->assertContains("'set', 'nonInteraction', true", $render);
 		$this->assertContains("'set', 'dimension3', '_cd1_'", $render);
+	}
+
+	public function testHit()
+	{
+		$ga = new GoogleAnalytics($this->options, new TrackingBagMock);
+		$ga->trackHit(
+			(new Hit('event', 'mycat', 'myact'))
+			->setPage('/mypage')
+		);
+
+		$render = $ga->render();
+
+		$this->assertContains("ga('send', 'event', 'mycat', 'myact', {\"page\":\"/mypage\"}", $render);
 	}
 }
 
