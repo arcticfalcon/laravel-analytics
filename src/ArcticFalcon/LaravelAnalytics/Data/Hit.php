@@ -8,6 +8,15 @@
 
 class Hit
 {
+	const PageView = 'pageview';
+	const AppView = 'appview';
+	const Event = 'event';
+	const Transaction = 'transaction';
+	const Item = 'item';
+	const Social = 'social';
+	const Exception = 'exception';
+	const Timing = 'timing';
+
 	protected $allowedHitTypes = ['pageview', 'appview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'];
 
 	/**
@@ -41,6 +50,8 @@ class Hit
 	protected $nonInteraction = false;
 
 	protected $customDimensions = [];
+
+	protected $hitCallback = null;
 
 	function __construct($hitType, $category, $action, $label = null, $value = null)
 	{
@@ -230,6 +241,26 @@ class Hit
 		return $this->customDimensions[$index];
 	}
 
+	/**
+	 * @return null|string
+	 */
+	public function getHitCallback()
+	{
+		return $this->hitCallback;
+	}
+
+	/**
+	 * @param string $hitCallback
+	 */
+	public function setHitCallback($hitCallback)
+	{
+		$this->hitCallback = $hitCallback;
+
+		return $this;
+	}
+
+
+
 	public function render()
 	{
 		$command = '';
@@ -257,6 +288,17 @@ class Hit
 		}
 
 		$field = json_encode($field, JSON_FORCE_OBJECT + JSON_UNESCAPED_SLASHES);
+
+		if($this->hitCallback)
+		{
+			$field = rtrim($field, '}');
+			if($field != '{')
+			{
+				$field .= ',';
+			}
+			$field .= '"hitCallback":'. $this->hitCallback . '}';
+		}
+
 		if($field != '{}')
 		{
 			$field = ', ' . $field;

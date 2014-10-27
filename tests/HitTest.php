@@ -6,7 +6,7 @@ class HitTest extends PHPUnit_Framework_TestCase
 {
 	public function testConstructor()
 	{
-		$hit = new Hit('event', 'mycat', 'myact', 'mylabel', 321);
+		$hit = new Hit(Hit::Event, 'mycat', 'myact', 'mylabel', 321);
 		$render = $hit->render();
 
 		$this->assertContains("'event',", $render);
@@ -19,7 +19,7 @@ class HitTest extends PHPUnit_Framework_TestCase
 
 	public function testSetters()
 	{
-		$hit = new Hit('event', 'mycat', 'myact');
+		$hit = new Hit(Hit::Event, 'mycat', 'myact');
 
 		$hit->setNonInteraction(true)
 			->setCustomDimension(2, 'mydim')
