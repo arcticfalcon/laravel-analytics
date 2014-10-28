@@ -303,6 +303,10 @@ class Hit
 		{
 			$field['page'] = $this->page;
 		}
+		if($this->title !== null)
+		{
+			$field['title'] = $this->title;
+		}
 		if($this->category !== null)
 		{
 			$field['eventCategory'] = $this->category;
