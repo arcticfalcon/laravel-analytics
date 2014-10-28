@@ -23,25 +23,27 @@ class Hit
 	 * event category
 	 * @var string
 	 */
-	private $category = 'email';
+	protected $category = null;
 
 	/**
 	 * event action
 	 * @var string
 	 */
-	private $action = 'open';
+	protected $action = null;
 
 	/**
 	 * event label
 	 * @var string
 	 */
-	private $label = null;
+	protected $label = null;
+
+	protected $title = null;
 
 	/**
 	 * hit type
 	 * @var string
 	 */
-	private $hitType = 'event';
+	protected $hitType = null;
 
 	protected $page = null;
 
@@ -53,13 +55,22 @@ class Hit
 
 	protected $hitCallback = null;
 
-	function __construct($hitType, $category, $action, $label = null, $value = null)
+	function __construct($hitType, $categoryOrPage = null, $actionOrTitle = null, $label = null, $value = null)
 	{
 		$this->setHitType($hitType);
-		$this->setCategory($category);
-		$this->setAction($action);
-		$this->setLabel($label);
-		$this->setValue($value);
+		if($this->hitType == static::PageView)
+		{
+			$this->setPage($categoryOrPage)
+				->setTitle($actionOrTitle);
+		}
+		if($this->hitType == static::Event)
+		{
+			$this->setCategory($categoryOrPage)
+				->setAction($actionOrTitle);
+		}
+
+		$this->setLabel($label)
+			->setValue($value);
 
 		return $this;
 	}
@@ -68,7 +79,7 @@ class Hit
 	/**
 	 * set action
 	 * @param string $action
-	 * @return Event
+	 * @return Hit
 	 */
 	public function setAction($action)
 	{
@@ -90,7 +101,7 @@ class Hit
 	 *
 	 * @param string $category
 	 *
-	 * @return Event
+	 * @return Hit
 	 */
 	public function setCategory($category)
 	{
@@ -112,7 +123,7 @@ class Hit
 	 *
 	 * @param string $hitType
 	 *
-	 * @return Event
+	 * @return Hit
 	 */
 	public function setHitType($hitType)
 	{
@@ -138,7 +149,7 @@ class Hit
 	 *
 	 * @param string $label
 	 *
-	 * @return Event
+	 * @return Hit
 	 */
 	public function setLabel($label)
 	{
@@ -193,6 +204,26 @@ class Hit
 
 		return $this;
 	}
+
+	/**
+	 * @return null
+	 */
+	public function getTitle()
+	{
+		return $this->title;
+	}
+
+	/**
+	 * @param null $title
+	 */
+	public function setTitle($title)
+	{
+		$this->title = $title;
+
+		return $this;
+	}
+
+
 
 
 	/**
@@ -263,33 +294,39 @@ class Hit
 
 	public function render()
 	{
-		$command = '';
-		if ($this->label !== null)
-		{
-			$command .= ", '{$this->label}'";
-			if ($this->value !== null)
-			{
-				$command .= ", {$this->value}";
-			}
-		}
-
 		$field = [];
-		if($this->nonInteraction)
+		if($this->nonInteraction == true)
 		{
 			$field['nonInteraction'] = 1;
+		}
+		if($this->page !== null)
+		{
+			$field['page'] = $this->page;
+		}
+		if($this->category !== null)
+		{
+			$field['eventCategory'] = $this->category;
+		}
+		if($this->action !== null)
+		{
+			$field['eventAction'] = $this->action;
+		}
+		if ($this->label !== null)
+		{
+			$field['eventLabel'] = $this->label;
+		}
+		if ($this->value !== null)
+		{
+			$field['eventValue'] = $this->value;
 		}
 		foreach($this->customDimensions as $index => $value)
 		{
 			$field['dimension'.$index] = $value;
 		}
-		if($this->page)
-		{
-			$field['page'] = $this->page;
-		}
 
 		$field = json_encode($field, JSON_FORCE_OBJECT + JSON_UNESCAPED_SLASHES);
 
-		if($this->hitCallback)
+		if($this->hitCallback !== null)
 		{
 			$field = rtrim($field, '}');
 			if($field != '{')
@@ -308,7 +345,7 @@ class Hit
 			$field = '';
 		}
 
-		return "ga('send', '{$this->hitType}', '{$this->category}', '{$this->action}'{$command}{$field});";
+		return "ga('send', '{$this->hitType}'{$field});";
 	}
 
 }

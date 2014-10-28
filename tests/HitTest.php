@@ -9,12 +9,11 @@ class HitTest extends PHPUnit_Framework_TestCase
 		$hit = new Hit(Hit::Event, 'mycat', 'myact', 'mylabel', 321);
 		$render = $hit->render();
 
-		$this->assertContains("'event',", $render);
-		$this->assertContains("'mycat',", $render);
-		$this->assertContains("'myact',", $render);
-		$this->assertContains("'mylabel',", $render);
-		$this->assertContains("321", $render);
-
+		$this->assertContains('event', $render);
+		$this->assertContains('eventCategory":"mycat"', $render);
+		$this->assertContains('eventAction":"myact"', $render);
+		$this->assertContains('eventLabel":"mylabel"', $render);
+		$this->assertContains('eventValue":321', $render);
 	}
 
 	public function testSetters()

@@ -45,13 +45,15 @@ class GoogleAnalyticsTest extends PHPUnit_Framework_TestCase
 	{
 		$ga = new GoogleAnalytics($this->options, new TrackingBagMock);
 		$ga->trackHit(
-			(new Hit('event', 'mycat', 'myact'))
+			(new Hit(Hit::PageView))
 			->setPage('/mypage')
 		);
 
 		$render = $ga->render();
 
-		$this->assertContains("ga('send', 'event', 'mycat', 'myact', {\"page\":\"/mypage\"}", $render);
+		$this->assertContains("ga('send', 'pageview',", $render);
+		$this->assertContains("\"page\":\"/mypage\"", $render);
+
 	}
 }
 
