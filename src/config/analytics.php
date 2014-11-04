@@ -41,6 +41,8 @@ return array(
 			 * Or you can use Analytics::disableAutoTracking(), Analytics::enableAutoTracking()
 			 */
 			'auto_track' => true,
+		    'sandbox' => true,
+		    'display_features' => false,
 
 		]
 

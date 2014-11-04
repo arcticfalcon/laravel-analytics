@@ -59,6 +59,8 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 	
 	private $customDimensions = [];
 
+	protected $enableDisplayFeatures = false;
+
 	/**
 	 * setting options via constructor
 	 *
@@ -72,6 +74,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 		$this->anonymizeIp = (isset($options['anonymize_ip'])) ? $options['anonymize_ip'] : false;
 		$this->autoTrack = (isset($options['auto_track'])) ? $options['auto_track'] : false;
 		$this->sandbox = (isset($options['sandbox'])) ? $options['sandbox'] : false;
+		$this->enableDisplayFeatures = (isset($options['display_features'])) ? $options['display_features'] : false;
 
 		if ($this->trackingId === null)
 		{
@@ -198,6 +201,22 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 		$this->customDimensions[$index] = $value;
 	}
 
+	/**
+	 * @return boolean
+	 */
+	public function isEnableDisplayFeatures()
+	{
+		return $this->enableDisplayFeatures;
+	}
+
+	/**
+	 * @param boolean $enableDisplayFeatures
+	 */
+	public function setEnableDisplayFeatures($enableDisplayFeatures)
+	{
+		$this->enableDisplayFeatures = $enableDisplayFeatures;
+	}
+
 
 	/**
 	 * returns the javascript embedding code
@@ -215,6 +234,11 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 		else
 		{
 			$script[] = "ga('create', '{$this->trackingId}', '{$this->trackingDomain}');";
+		}
+
+		if ($this->enableDisplayFeatures)
+		{
+			$script[] = "ga('require', 'displayfeatures');";
 		}
 
 		if ($this->anonymizeIp)
@@ -254,7 +278,8 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 	 */
 	protected function _getJavascriptTemplateBlockBegin()
 	{
-		return "<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');";
+		$debug = $this->sandbox? '_debug' : '';
+		return "<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics{$debug}.js','ga');";
 	}
 
 	/**
