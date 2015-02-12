@@ -44,7 +44,7 @@ class TrackingBag implements TrackingBagInterface {
 	{
 		if (Session::has($this->sessionIdentifier))
 		{
-			return Session::get($this->sessionIdentifier);
+			return Session::pull($this->sessionIdentifier);
 		}
 
 		return [];
